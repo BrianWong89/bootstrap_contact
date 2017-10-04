@@ -16,12 +16,11 @@
 
     <!-- Custom styles for this template -->
     <link href="../bootstrap_contact/bower_components/bootstrap/dist/css/navbar.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+    <link href="../bootstrap_contact/bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet">
     <script src="../bootstrap_contact/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bootstrap_contact/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="brian.js"></script>
     <script src="../bootstrap_contact/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <![endif]-->
 </head>
 
 <div class="container">
@@ -42,9 +41,9 @@
 
                         <!-- Email input-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="email">Your E-mail</label>
+                            <label class="col-md-3 control-label" for="email">Your Date Of Birth</label>
                             <div class="col-md-9">
-                                <input id="email" name="email" type="text" placeholder="Your email"
+                                <input name="dateofbirth" id="dateofbirth" type="text" placeholder="Your date of birth"
                                        class="form-control">
                             </div>
                         </div>
