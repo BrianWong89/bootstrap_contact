@@ -1,11 +1,7 @@
 function DisableSunday(date) {
 
     var day = date.getDay();
-    if (day === 0) {
-        return [false];
-    } else {
-        return [true];
-    }
+    return (day === 0);
 }
 
 function doSomething() {
@@ -27,11 +23,10 @@ function IsChristmas(date) {
 $(function () {
 
     $("#dateofbirth").datepicker({
-        beforeShowDay: DisableSunday,
-        onSelect: doSomething,
         beforeShowDay: function (date) {
-            return [(!IsChristmas(date))];
+            return [(!IsChristmas(date) && !DisableSunday(date))];
         },
+        onSelect: doSomething,
         yearRange: "-100:+0",
         dateFormat: "dd-mm-yy",
         changeMonth: true,
