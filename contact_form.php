@@ -39,9 +39,9 @@
                             </div>
                         </div>
 
-                        <!-- Email input-->
+                        <!-- DOB input-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="email">Your Date Of Birth</label>
+                            <label class="col-md-3 control-label" for="dateofbirth">Your Date Of Birth</label>
                             <div class="col-md-9">
                                 <input name="dateofbirth" id="dateofbirth" type="text" placeholder="Your date of birth"
                                        class="form-control">
