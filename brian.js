@@ -17,11 +17,21 @@ function doSomething() {
     }
 }
 
+function IsChristmas(date) {
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    return (day === 25 && month === 12);
+}
+
 $(function () {
 
     $("#dateofbirth").datepicker({
         beforeShowDay: DisableSunday,
         onSelect: doSomething,
+        beforeShowDay: function (date) {
+            return [(!IsChristmas(date))];
+        },
         yearRange: "-100:+0",
         dateFormat: "dd-mm-yy",
         changeMonth: true,
