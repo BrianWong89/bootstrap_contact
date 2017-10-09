@@ -3,16 +3,16 @@ $members=array();
 /* Declaration of members */
 $member_1=array(
 	"name"=>"Brian Wong",
-	"enrolmentDate"=>"25-12-2017",
+	"enrolmentDate"=>"25/12/2016",
 );
 $member_2=array(
 	"name"=>"Kenneth Lee",
-	"enrolmentDate"=>"25-12-2017",
+	"enrolmentDate"=>"25/12/2016",
 );
 
 /* End of declaration of members */
 //Let's push all the member into $members array
-if ($_REQUEST['startDate'] == "25-12-2017" && $_REQUEST['endDate'] == "25-12-2017") {
+if ($_REQUEST['startDate'] == "25/12/2016" && $_REQUEST['endDate'] == "25/12/2016") {
 	array_push($members,$member_1);
 	array_push($members,$member_2);
 }
