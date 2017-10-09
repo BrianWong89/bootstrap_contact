@@ -27,11 +27,13 @@
     <form class="form-inline">
         <div class="form-group">
             <label for="dateFrom">Date From:</label>
-            <input name="dateFrom" id="dateFrom" type="text" value="25/12/2017" class="form-control" placeholder="Select Date">
+            <input name="dateFrom" id="dateFrom" type="text" value="25/12/2017" class="form-control"
+                   placeholder="Select Date">
         </div>
         <div class="form-group">
             <label for="dateTo">Date To:</label>
-            <input name="dateTo" id="dateTo" type="text" value="26/12/2017" class="form-control" placeholder="Select Date">
+            <input name="dateTo" id="dateTo" type="text" value="26/12/2017" class="form-control"
+                   placeholder="Select Date">
         </div>
         <div class="form-group">
             <button type="button" class="btn btn-danger btn-block" id="searchBtn">Search</button>
@@ -43,16 +45,17 @@
 
 <div class="container">
     <h4>Search Results</h4>
-<table id="myTable" class="table table-bordered">
-    <thead>
+    <table id="myTable" class="table table-bordered">
+        <thead>
         <tr>
             <th><strong>Name</strong></th>
             <th><strong>Enrolment</strong></th>
         </tr>
-    </thead>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-    </tbody>
-</table>
+        </tbody>
+
+    </table>
 </div>

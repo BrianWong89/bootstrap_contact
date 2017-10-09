@@ -32,6 +32,6 @@ $(document).ready(function () {
                     console.log(data[i]);
                     $('#myTable tbody').append("<tr><td>" + data[i].name + "</td><td>" + data[i].enrolmentDate + "</td></tr>");
                 }
-        });
+            });
     });
 });
