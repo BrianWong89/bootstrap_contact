@@ -17,8 +17,6 @@ $(document).ready(function () {
             $("#dateFrom").datepicker("option", "maxDate", selectedDate);
         }
     });
-
-
 });
 
 var vm = new Vue({
@@ -26,8 +24,12 @@ var vm = new Vue({
     el: '#app',
     //First thing, mounted here executes whatever commands you want when Vue.js has been loaded.
     mounted: function () {
-        //alert("Vue.js has been loaded");
-
+        // GET /someUrl
+        this.$http.get('mail.php').then(response => {
+            // success callback
+        }, response => {
+            // error callback
+        });
     },
     data: {
         name: "",
@@ -40,22 +42,46 @@ var vm = new Vue({
         members: [
             {"name": "Brian", "age": 25},
             {"name": "Kenneth", "age": 30}
-        ],
+        ]
     },
     created: function () {
         // `this` points to the vm instance
     },
     methods: {
-        pressSubmitBtn: function () {
-            this.showSuccessMessage = true;
-        },
         pressSubmitBtn1: function () {
             this.showTable = true;
         },
         pressSubmitBtn2: function () {
             this.showTable = false;
+        },
+        pressSubmitBtn3: function () {
+            this.members = [
+                {"name": "Mollie", "age": 52},
+                {"name": "Isiah", "age": 55}
+            ];
+        },
+        pressSubmitBtn: function () {
+            // GET /someUrl
+            var post_fields = {
+                "name":$("#name").val(),
+                "dateofbirth":$("#dateofbirth").val(),
+                "email":$("#email").val(),
+                "message":$("#message").val()
+            };
+            this.$http.post('mail.php',
+                post_fields
+                ).then(response => {
+                // success callback
+                //console.log(response);
+                if (response.body.success === true){
+                    this.showSuccessMessage = true;
+                } else {
+                    this.showWarningMessage = true;
+                }
+            }, response => {
+                // error callback
+            })
         }
-
     },
     watch: {
         showSuccessMessage: function (value) {
@@ -64,8 +90,5 @@ var vm = new Vue({
         name: function (value) {
             alert("Name has been changed to " + value);
         }
-
-    },
+    }
 });
-
-$

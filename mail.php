@@ -1,6 +1,7 @@
 <?php
 require("vendor/autoload.php");
 
+$data = json_decode(file_get_contents('php://input'), true);
 use PHPMailer\PHPMailer\PHPMailer;
 
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
@@ -26,9 +27,10 @@ $email = $data['email'];
 $message = $data['message'];
 $mail->Body = nl2br("Name: " . $name . "\n Date of Birth: " . $dob . "\n Email Address: " . $email . "\n Message: " . $message . "");
 $mail->IsHTML(true);
+$return=array();
 if (!$mail->send()) {
-    echo 'Message was not sent.';
-    echo 'Mailer error: ' . $mail->ErrorInfo;
+    $return['success']=false;
 } else {
-    echo 'Message has been sent.';
+    $return['success']=true;
 }
+echo json_encode($return);

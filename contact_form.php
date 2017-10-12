@@ -30,21 +30,9 @@
     <div id="successDiv" class="alert alert-success" v-show="showSuccessMessage">
         <strong>Success!</strong> Your message has been sent. We will get back to you ASAP!
     </div>
-    <div id="successDiv2" class="alert alert-success" v-show="showSuccessMessage">
-        <strong>Success2!</strong> Your message has been sent. We will get back to you ASAP!
-    </div>
-    <div id="successDiv3" class="alert alert-success" v-show="showSuccessMessage">
-        <strong>Success2!</strong> Your message has been sent. We will get back to you ASAP!
-    </div>
-    <div id="successDiv4" class="alert alert-success" v-show="showSuccessMessage">
-        <strong>Success2!</strong> Your message has been sent. We will get back to you ASAP!
-    </div>
-    <div id="successDiv5" class="alert alert-success" v-show="showSuccessMessage">
-        <strong>Success2!</strong> Your message has been sent. We will get back to you ASAP!
-    </div>
     <form action="process_contact_form.php" class="form-horizontal" method="post" id="contact">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-12">
                 <table class="table-bordered" v-show="showTable">
                     <tr>
                         <th>Name</th>
@@ -57,7 +45,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="well well-sm">
+                <div class="well well-md">
                     <fieldset>
                         <legend class="text-center">Contact us</legend>
 
@@ -98,20 +86,27 @@
 
                         <!-- Form actions -->
                         <div class="form-group">
-                            <div class="col-md-4 text-right">
-                                <button type="button" class="btn btn-success btn-lg" v-on:click="pressSubmitBtn1()">
-                                    Show Table
-                                </button>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-danger btn-lg" v-on:click="pressSubmitBtn2()">
-                                    Hide Table
-                                </button>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <button type="button" class="btn btn-primary btn-lg" v-on:click="pressSubmitBtn()">
-                                    Submit
-                                </button>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-success btn-lg" v-on:click="pressSubmitBtn1()">
+                                        Show Table
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-danger btn-lg" v-on:click="pressSubmitBtn2()">
+                                        Hide Table
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-info btn-lg" v-on:click="pressSubmitBtn3()">
+                                        Change Table
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-primary btn-lg" v-on:click="pressSubmitBtn()">
+                                        Submit
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
