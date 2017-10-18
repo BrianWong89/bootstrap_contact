@@ -32,7 +32,10 @@ var vm = new Vue({
                 this.currentTemperature = response.body.temperature;
             if (response.body.typhoonAlert === true){
                 this.showTyphoonImage = true;
-            } else {
+            } else if (response.body.temperature > 40){
+                this.currentTemperature.fontcolor("red");
+            }
+            else {
                 this.showTyphoonImage = false;
             }
         }, response => {
