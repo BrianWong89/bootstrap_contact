@@ -42,6 +42,9 @@ var vm = new Vue({
         members: [
             {"name": "Brian", "age": 25},
             {"name": "Kenneth", "age": 30}
+        ],
+        errorMessages: [
+
         ]
     },
     created: function () {
@@ -64,7 +67,6 @@ var vm = new Vue({
             // GET /someUrl
             var post_fields = {
                 "name":$("#name").val(),
-                "dateofbirth":$("#dateofbirth").val(),
                 "email":$("#email").val(),
                 "message":$("#message").val()
             };
@@ -72,11 +74,13 @@ var vm = new Vue({
                 post_fields
                 ).then(response => {
                 // success callback
-                //console.log(response);
-                if (response.body.success === true){
+                console.log(response);
+                if (response.data.is_valid == null){
                     this.showSuccessMessage = true;
+                    this.showWarningMessage = false;
                 } else {
                     this.showWarningMessage = true;
+                    this.errorMessages = response.data.is_valid;
                 }
             }, response => {
                 // error callback

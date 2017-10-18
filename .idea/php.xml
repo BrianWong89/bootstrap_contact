@@ -5,6 +5,7 @@
       <path value="$PROJECT_DIR$/vendor/phpmailer/phpmailer" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/sergeytsalkov/meekrodb" />
+      <path value="$PROJECT_DIR$/vendor/wixel/gump" />
     </include_path>
   </component>
 </project>

@@ -26,7 +26,9 @@
 </head>
 
 <div id="app" class="container">
-    <div id="warningDiv" class="alert alert-danger" v-show="showWarningMessage"></div>
+    <div id="warningDiv" class="alert alert-danger" v-show="showWarningMessage">
+        <div v-for="error in errorMessages" v-html="error +'<br>'"></div>
+    </div>
     <div id="successDiv" class="alert alert-success" v-show="showSuccessMessage">
         <strong>Success!</strong> Your message has been sent. We will get back to you ASAP!
     </div>
@@ -48,21 +50,11 @@
                 <div class="well well-md">
                     <fieldset>
                         <legend class="text-center">Contact us</legend>
-
                         <!-- Name input-->
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="name">Name:</label>
                             <div class="col-md-9">
                                 <input id="name" v-model.lazy="name" name="name" type="text" placeholder="Your name"
-                                       class="form-control">
-                            </div>
-                        </div>
-
-                        <!-- DOB input-->
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="dateofbirth">Date of Birth:</label>
-                            <div class="col-md-9">
-                                <input name="dateofbirth" id="dateofbirth" type="text" placeholder="Your date of birth"
                                        class="form-control">
                             </div>
                         </div>
