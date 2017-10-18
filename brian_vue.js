@@ -81,6 +81,7 @@ var vm = new Vue({
                 } else {
                     this.showWarningMessage = true;
                     this.errorMessages = response.data.is_valid;
+                    this.showSuccessMessage = false;
                 }
             }, response => {
                 // error callback
