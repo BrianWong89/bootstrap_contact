@@ -11,11 +11,9 @@ var vm = new Vue({
         });
     },
     data: {
-        showWarningMessage: false,
         showTyphoonImage: false,
-        currentTemperature: [
-
-        ]
+        currentTemperature: "",
+        currentAlert: ""
     },
     created: function () {
         // `this` points to the vm instance
@@ -30,12 +28,18 @@ var vm = new Vue({
                 // success callback
                 //console.log(response);
                 this.currentTemperature = response.body.temperature;
+                this.currentAlert = response.body.typhoonAlert;
+                // Score Color
+                var temp = parseInt($('#temp').text().trim());
+                //alert(currentTemperature);
+                if (isNaN(temp)) {
+                    if (this.currentTemperature > 40) {
+                        $('#temp').css('color', 'red');
+                    }
+                }
             if (response.body.typhoonAlert === true){
                 this.showTyphoonImage = true;
-            } else if (response.body.temperature > 40){
-                this.currentTemperature.fontcolor("red");
-            }
-            else {
+            } else {
                 this.showTyphoonImage = false;
             }
         }, response => {

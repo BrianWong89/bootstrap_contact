@@ -9,11 +9,9 @@
 </head>
 
 <div id="app" class="container">
-    <div class="row">Temperature: {{currentTemperature}}C</div>
-    <div id="warningDiv" class="alert alert-danger" v-show="showWarningMessage">
-        Temperature: {{currentTemperature}}C
-    </div>
+    <div class="row"><span id="temp">Temperature: {{currentTemperature}}C <br> Typhoon Alert Status: {{currentAlert}}</span></div>
     <img src="images/typhoon.png" width="800" height="400" v-show="showTyphoonImage">
 </div>
+
 <script src="typhoon_vue.js"></script>
 </html>
