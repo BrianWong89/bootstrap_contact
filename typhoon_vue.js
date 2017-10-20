@@ -29,14 +29,16 @@ var vm = new Vue({
                 //console.log(response);
                 this.currentTemperature = response.body.temperature;
                 this.currentAlert = response.body.typhoonAlert;
-                // Score Color
-                var temp = parseInt($('#temp').text().trim());
-                //alert(currentTemperature);
-                if (isNaN(temp)) {
+            //Everything from here
+                if (!isNaN(this.currentTemperature)) {
                     if (this.currentTemperature > 40) {
+                        //alert(this.currentTemperature);
                         $('#temp').css('color', 'red');
                     }
                 }
+            //TO end of here
+            //Is extremely bad code. It's commendable u went to google and learn how to do this - in fact you learn smth new, parseInt
+            //But, why don't u compare this.currentTemperature alone? Why is there a need to compare 'temp' in line 36, 37
             if (response.body.typhoonAlert === true){
                 this.showTyphoonImage = true;
             } else {

@@ -9,7 +9,12 @@
 </head>
 
 <div id="app" class="container">
-    <div class="row"><span id="temp">Temperature: {{currentTemperature}}C <br> Typhoon Alert Status: {{currentAlert}}</span></div>
+    <div class="row">Temperature:
+        <span id="temp">{{currentTemperature}}</span>C
+        <br>
+        Typhoon Status Alert:
+        <span>{{currentAlert}}</span>
+    </div>
     <img src="images/typhoon.png" width="800" height="400" v-show="showTyphoonImage">
 </div>
 
