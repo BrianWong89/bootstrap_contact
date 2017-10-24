@@ -31,7 +31,7 @@
     <div id="successDiv" class="alert alert-success" v-show="showSuccessMessage">
         <strong>Success!</strong> Your message has been sent. We will get back to you ASAP!
     </div>
-    <form action="vue_sql.php" class="form-horizontal" method="post" id="contact">
+    <form action="mail.php" class="form-horizontal" method="post" id="contact">
         <div class="row">
             <div class="col-md-12">
                 <table class="table-bordered" v-show="showTable">

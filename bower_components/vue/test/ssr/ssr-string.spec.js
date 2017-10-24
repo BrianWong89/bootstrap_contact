@@ -957,6 +957,38 @@ describe('SSR: renderToString', () => {
       done()
     })
   })
+
+  it('return Promise', done => {
+    renderToString(new Vue({
+      template: `<div>{{ foo }}</div>`,
+      data: { foo: 'bar' }
+    })).then(res => {
+      expect(res).toBe(`<div data-server-rendered="true">bar</div>`)
+      done()
+    })
+  })
+
+  it('return Promise (error)', done => {
+    Vue.config.silent = true
+    renderToString(new Vue({
+      render () {
+        throw new Error('foobar')
+      }
+    })).catch(err => {
+      expect(err.toString()).toContain(`foobar`)
+      Vue.config.silent = false
+      done()
+    })
+  })
+
+  it('should catch template compilation error', done => {
+    renderToString(new Vue({
+      template: `<div></div><div></div>`
+    }), (err, res) => {
+      expect(err.toString()).toContain('Component template should contain exactly one root element')
+      done()
+    })
+  })
 })
 
 function renderVmWithOptions (options, cb) {

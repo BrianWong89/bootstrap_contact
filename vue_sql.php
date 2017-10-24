@@ -1,10 +1,12 @@
 <?php
 
 require_once("vendor/autoload.php");
+//Where does $data come from?
+$data = json_decode(file_get_contents('php://input'), true);
 
-$name = $_REQUEST['name'];
-$email = $_REQUEST['email'];
-$message = $_REQUEST['message'];
+$name = $data['name'];
+$email = $data['email'];
+$message = $data['message'];
 
 $results = DB::insert('message', array(
 'name' => $name,

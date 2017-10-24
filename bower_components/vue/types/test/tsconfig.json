@@ -6,8 +6,7 @@
       "es2015"
     ],
     "module": "commonjs",
-    "noImplicitAny": true,
-    "strictNullChecks": true,
+    "strict": true,
     "noEmit": true
   },
   "files": [
@@ -19,7 +18,8 @@
     "options-test.ts",
     "plugin-test.ts",
     "vue-test.ts",
-    "augmentation-test.ts"
+    "augmentation-test.ts",
+    "ssr-test.ts"
   ],
   "compileOnSave": false
 }

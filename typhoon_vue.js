@@ -18,7 +18,7 @@ var vm = new Vue({
     created: function () {
         // `this` points to the vm instance
         this.typhoonAlert();
-        this.timer = setInterval(this.typhoonAlert, 10000)
+        this.timer = setInterval(this.typhoonAlert, 2000);
     },
     methods: {
         typhoonAlert: function () {
@@ -34,6 +34,9 @@ var vm = new Vue({
                     if (this.currentTemperature > 40) {
                         //alert(this.currentTemperature);
                         $('#temp').css('color', 'red');
+                    }
+                    else {
+                        $('#temp').css('color', 'black');
                     }
                 }
             //TO end of here
