@@ -3,12 +3,6 @@ var vm = new Vue({
     el: '#app',
     //First thing, mounted here executes whatever commands you want when Vue.js has been loaded.
     mounted: function () {
-        // GET /someUrl
-        this.$http.get('hospital_json.php').then(response => {
-            // success callback
-        }, response => {
-            // error callback
-        });
     },
     data: {
 
@@ -20,6 +14,7 @@ var vm = new Vue({
     methods: {
         pressSearchBtn: function () {
             // GET /someUrl
+            //$("#minAge").val(),
             this.$http.post('hospital_json.php'
             ).then(response = > {
                 // success callback

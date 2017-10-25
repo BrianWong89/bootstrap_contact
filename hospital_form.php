@@ -28,7 +28,7 @@
 <body>
 
 <div id="app" class="container">
-    <select class="selectpicker" title="Race" id="race">
+    <select title="Race" id="race">
         <option>Any Race</option>
         <option>Chinese</option>
         <option>Malay</option>
@@ -37,7 +37,7 @@
     </select>
     <br>
     <br>
-    <select class="selectpicker" title="Minimum Age" id="minAge">
+    <select title="Minimum Age" id="minAge">
         <option>Any Age</option>
         <option>10</option>
         <option>20</option>
@@ -52,7 +52,7 @@
     </select>
     <br>
     <br>
-    <select class="selectpicker" title="Maximum Age" id="maxAge">
+    <select title="Maximum Age" id="maxAge">
         <option>Any Age</option>
         <option>10</option>
         <option>20</option>

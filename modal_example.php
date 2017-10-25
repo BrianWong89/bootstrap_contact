@@ -17,9 +17,9 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/navbar.css" />
     <link rel="stylesheet" href="bower_components/sweet-modal/dist/min/jquery.sweet-modal.min.css" />
-    <script src="bower_components/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="bower_components/sweet-modal/dist/min/jquery.sweet-modal.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 
