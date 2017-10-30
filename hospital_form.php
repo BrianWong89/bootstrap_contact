@@ -74,6 +74,5 @@
 
 </body>
 
-<script src="../bootstrap_contact/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="hospital_vue.js"></script>
 </html>

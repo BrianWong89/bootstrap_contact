@@ -14,9 +14,14 @@ var vm = new Vue({
     methods: {
         pressSearchBtn: function () {
             // GET /someUrl
-            //$("#minAge").val(),
-            this.$http.post('hospital_json.php'
-            ).then(response = > {
+            var post_fields = {
+                "race":$("#race").val(),
+               "minAge":$("#minAge").val(),
+                "maxAge":$("#maxAge").val()
+        };
+            this.$http.post('hospital_json.php',
+                post_fields
+            ).then(response => {
                 // success callback
                 //console.log(response);
             }, response => {
