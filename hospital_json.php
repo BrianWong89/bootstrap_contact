@@ -11,11 +11,10 @@ print_r($data);
 if ($data['race'] == "Any Race" && $data['minAge'] == "Any Age" && $data['maxAge'] == "Any Age") {
     $results = DB::query("SELECT * FROM `security`");
 }
-//Fix it later, or tonight when you're back
-if ($data['race'] == "Any Race" && $data['minAge'] == "30" && $data['maxAge'] == 90) {
+if ($data['race'] != "Any Race" && $data['minAge'] != "Any Age" && $data['maxAge'] != "Any Age") {
     $results = DB::query("SELECT * FROM `security` WHERE age BETWEEN %i AND %i", $data['minAge'], $data['maxAge']);
 }
-if ($data['race'] == "Chinese" && $data['minAge'] == "Any Age" && $data['maxAge'] == 80) {
+if ($data['race'] != "Any Race" && $data['minAge'] != "Any Age" && $data['maxAge'] != "Any Age") {
     $results = DB::query("SELECT * FROM `security` WHERE ethnicity=%s AND age <=%i", $data['race'], $data['maxAge']);
 }
 
