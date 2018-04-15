@@ -1,32 +1,51 @@
 <?php
-require_once("vendor/autoload.php");
+require(__DIR__."/vendor/autoload.php");
 
-/* PHP homework 7 Apr  2018 */
-
-// Question b: Add in all the timings for Bedok Clinic for Monday
+// Add in timings for Bedok clinic for Monday
 $rows = array();
-
-// For Start Time
-$start1 = new DateTime("00:00:00");
-$start2   = new DateTime("23:00:00");
-
-// For End Time
-$end1 = new DateTime("00:59:59");
-$end2   = new DateTime("23:59:59");
-
-$interval = DateInterval::createFromDateString('1 hour');
-
-$time1 = new DatePeriod($start1, $interval, $end1);
-$time2 = new DatePeriod($start2, $interval, $end2);
-
-foreach ($times as $time) {
+$time = date_create('00:00:00');
+while(date_format($time, "H:i:s") != "23:59:59") {
+    $hour = date_format($time, "H");
+    $status = "";
+    switch($hour) {
+        case "00":
+        case "01":
+        case "02":
+        case "03":
+        case "04":
+        case "05":
+        case "10":
+        case "11":
+        case "12":
+        case "13":
+        case "14":
+        case "15":
+        case "16":
+        case "17":
+        case "18":
+        case "19":
+        case "20":
+            echo $hour;
+            $status = "light";
+            break;
+        case "06":
+        case "07":
+        case "08":
+        case "09":
+        case "21":
+        case "22":
+        case "23":
+            echo $hour;
+            $status = "moderate";
+            break;
+    }
     $rows[] = array(
         'outlet_id' => 1,
         'day' => 1,
-        'status' => 'testing',
-        'startTime' =>  $time1->add($interval)->format('H:i:s'),
-        'endTime' => $time2->add($interval)->format('H:i:s'),
+        'status' => $status,
+        'startTime' => (date_format($time, "H:i:s")=="00:00:00")?"00:00:00":date_format(date_modify($time,"+1 second"), "H:i:s"),
+        'endTime' => date_format(date_modify($time,"+3599 second"), "H:i:s"),
     );
+    echo date_format($time, "H:i:s").", ".$status."<br>";
 }
-
 DB::insert('outlet_timing', $rows);
