@@ -1,13 +1,13 @@
 <?php
-require(__DIR__."/vendor/autoload.php");
+require("vendor/autoload.php");
 
-// Add in timings for Bedok clinic for Monday
+// Add in timings for Bedok clinic for Monday.
 $rows = array();
-$time = date_create('00:00:00');
-while(date_format($time, "H:i:s") != "23:59:59") {
-    $hour = date_format($time, "H");
-    $status = "";
-    switch($hour) {
+$timeStamp = date_create('00:00:00');
+while (date_format($timeStamp, "H:i:s") < "23:59:59") {
+    $hr = date_format($timeStamp, "H");
+    $clinicStatus = "";
+    switch ($hr) {
         case "00":
         case "01":
         case "02":
@@ -25,8 +25,7 @@ while(date_format($time, "H:i:s") != "23:59:59") {
         case "18":
         case "19":
         case "20":
-            echo $hour;
-            $status = "light";
+            $clinicStatus = "Light";
             break;
         case "06":
         case "07":
@@ -35,17 +34,26 @@ while(date_format($time, "H:i:s") != "23:59:59") {
         case "21":
         case "22":
         case "23":
-            echo $hour;
-            $status = "moderate";
+            $clinicStatus = "Moderate";
             break;
     }
+    if (date_format($timeStamp, "H:i:s") === "00:00:00")
+        $startTime = "00:00:00";
+    else
+        $startTime = date_format(date_modify($timeStamp, "+1 second"), "H:i:s");
     $rows[] = array(
         'outlet_id' => 1,
         'day' => 1,
-        'status' => $status,
-        'startTime' => (date_format($time, "H:i:s")=="00:00:00")?"00:00:00":date_format(date_modify($time,"+1 second"), "H:i:s"),
-        'endTime' => date_format(date_modify($time,"+3599 second"), "H:i:s"),
+        'status' => $clinicStatus,
+        'startTime' => $startTime,
+        'endTime' => date_format(date_modify($timeStamp, "+3599 second"), "H:i:s"),
     );
-    echo date_format($time, "H:i:s").", ".$status."<br>";
+    $color = "";
+    if ($clinicStatus == "Light") {
+        $color = "#008000";
+    } else {
+        $color = "#FFA500";
+    }
+    echo "Status for Bedok Clinic on Monday from " . $startTime . " to " . date_format($timeStamp, "H:i:s") . " is <span style='color: $color'><strong>" . $clinicStatus . "</strong></span>.<br>";
 }
 DB::insert('outlet_timing', $rows);
