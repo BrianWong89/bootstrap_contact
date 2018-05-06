@@ -40,6 +40,20 @@ $femaleAgeGroup16 = 51400;
 $femaleAgeGroup17 = 31900;
 $femaleAgeGroup18 = 31000;
 
+function calculateResidents($gender, $dateOfBirth)
+{
+    if ($gender === "Male") {
+        $dateOfBirth = date("d-m-Y", strtotime($dateOfBirth));
+        $dobObject = new DateTime($dateOfBirth);
+        $nowObject = new DateTime();
+        $diff = $dobObject->diff($nowObject);
+        return $diff->y;
+    } else {
+        return false;
+    }
+}
+echo calculateResidents("Male", "10/03/1999") . "<br>";
+
 // Code to calculate age from DOB (for both male & female).
 $maleDateOfBirth = "05/05/2005";
 $femaleDateOfBirth = "05/05/1995";
