@@ -26,31 +26,32 @@ function calculateResidents($gender, $dateOfBirth)
 
     if ($gender == "male") {
         if ($age >= 0 && $age <= 4) {
-            echo "$maleAgeText $age. There are $maleAgeGroup1 males in the 0-4 age group.<br>";
+            return "$maleAgeText $age. There are $maleAgeGroup1 males in the 0-4 age group.<br>";
         } else if ($age >= 5 && $age <= 9) {
-            echo "$maleAgeText $age. There are $maleAgeGroup2 males in the 5-9 age group.<br>";
+            return "$maleAgeText $age. There are $maleAgeGroup2 males in the 5-9 age group.<br>";
         } else if ($age >= 10 && $age <= 14) {
-            echo "$maleAgeText $age. There are $maleAgeGroup3 males in the 10-14 age group.<br>";
+            return "$maleAgeText $age. There are $maleAgeGroup3 males in the 10-14 age group.<br>";
         } else if ($age >= 15 && $age <= 19) {
-            echo "$maleAgeText $age. There are $maleAgeGroup4 males in the 15-19 age group.<br>";
+            return "$maleAgeText $age. There are $maleAgeGroup4 males in the 15-19 age group.<br>";
         } else if ($age >= 20 && $age <= 24) {
-            echo "$maleAgeText $age. There are $maleAgeGroup5 males in the 20-24 age group.<br>";
+            return "$maleAgeText $age. There are $maleAgeGroup5 males in the 20-24 age group.<br>";
         }
-    }
-
-    if ($gender == "female") {
+    } else if ($gender == "female") {
         if ($age >= 0 && $age <= 4) {
-            echo "$femaleAgeText $age. There are $femaleAgeGroup1 females in the 0-4 age group.<br>";
+            return "$femaleAgeText $age. There are $femaleAgeGroup1 females in the 0-4 age group.<br>";
         } else if ($age >= 5 && $age <= 9) {
-            echo "$femaleAgeText $age. There are $femaleAgeGroup2 females in the 5-9 age group.<br>";
+            return "$femaleAgeText $age. There are $femaleAgeGroup2 females in the 5-9 age group.<br>";
         } else if ($age >= 10 && $age <= 14) {
-            echo "$femaleAgeText $age. There are $femaleAgeGroup3 females in the 10-14 age group.<br>";
+            return "$femaleAgeText $age. There are $femaleAgeGroup3 females in the 10-14 age group.<br>";
         } else if ($age >= 15 && $age <= 19) {
-            echo "$femaleAgeText $age. There are $femaleAgeGroup4 females in the 15-19 age group.<br>";
+            return "$femaleAgeText $age. There are $femaleAgeGroup4 females in the 15-19 age group.<br>";
         } else if ($age >= 20 && $age <= 24) {
-            echo "$femaleAgeText $age. There are $femaleAgeGroup5 females in the 20-24 age group.<br>";
+            return "$femaleAgeText $age. There are $femaleAgeGroup5 females in the 20-24 age group.<br>";
         }
     }
+    return "Data not found. Please try again.";
 }
 
-calculateResidents("male", "10/10/2000");
+$AgeText = calculateResidents("female", "10/10/1989");
+
+echo $AgeText;
