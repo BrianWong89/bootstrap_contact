@@ -59,7 +59,9 @@ require_once("vendor/autoload.php");
         echo "<td>" . $row["comments"] . "</td>";
         ?>
         <td>
-            <button value="Delete" id="button">Delete
+            <form action="delete-data.php">
+                <input type="submit" value="Delete">
+            </form>
         </td>
         <?php echo "</tr>";
     } ?>

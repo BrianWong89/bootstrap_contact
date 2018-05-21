@@ -4,16 +4,16 @@ function isAuthorized ($access_type, $command) {
     $access_type = "";
     $command = "";
     switch ($access_type) {
-        case ("Operations"):
+        case "Operations":
             switch ($command) {
                 case "":
                     break;
             }
             break;
-        case ("Manager"):
+        case "Manager":
             return $command = "add";
             break;
-        case ("Admin"):
+        case "Admin":
             return $command = "delete";
             break;
         default:
