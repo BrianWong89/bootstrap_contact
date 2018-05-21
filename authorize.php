@@ -5,7 +5,10 @@ function isAuthorized ($access_type, $command) {
     $command = "";
     switch ($access_type) {
         case ("Operations"):
-            return $command = "view";
+            switch ($command) {
+                case "":
+                    break;
+            }
             break;
         case ("Manager"):
             return $command = "add";
@@ -19,6 +22,6 @@ function isAuthorized ($access_type, $command) {
     }
 }
 
-$role = isAuthorized("", "");
+$true = isAuthorized("Admin", "delete");
 
 echo $role;

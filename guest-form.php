@@ -54,8 +54,8 @@ require_once("vendor/autoload.php");
         echo "<td>" . $row["name"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["website"] . "</td>";
-        echo "<td><img src=" . $row["file"] . "></td>";
-        echo "<td>" . $row["resume"] . "</td>";
+        echo "<td></td>";
+        echo "<td></td>";
         echo "<td>" . $row["comments"] . "</td>";
         ?>
         <td>
