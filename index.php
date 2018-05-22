@@ -1,8 +1,6 @@
 <?php
 require_once("vendor/autoload.php");
-if (isset($_POST["delete"])) {
-    DB::delete('guest', "id=%i", 2);
-}
+
 // Check if image file is a actual image or fake image
 if (isset($_POST["submit"])) {
     //echo "Hi";
@@ -101,6 +99,12 @@ if (isset($_POST["submit"])) {
     }
 }
 
+if (isset($_POST["delete"])) {
+    if ($uploadOk > 0) {
+        DB::delete('guest', "name=%s", "1");
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -111,15 +115,15 @@ if (isset($_POST["submit"])) {
 <h1>Guest Book</h1>
 <form action="index.php" method="POST" enctype="multipart/form-data">
     <label>Name:</label>
-    <input type="input" name="name">
+    <input type="input" name="name" required>
     <br>
     <br>
     <label>Email:</label>
-    <input type="input" name="email">
+    <input type="input" name="email" required>
     <br>
     <br>
     <label>Website:</label>
-    <input type="input" name="website">
+    <input type="input" name="website" required>
     <br>
     <br>
     <label>Upload Image:</label>
@@ -131,7 +135,7 @@ if (isset($_POST["submit"])) {
     <br>
     <br>
     <label>Comments:</label>
-    <textarea name="comments"></textarea>
+    <textarea name="comments" required></textarea>
     <br>
     <br>
     <input type="submit" value="Submit" name="submit">
