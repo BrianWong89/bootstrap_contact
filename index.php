@@ -1,5 +1,8 @@
 <?php
 require_once("vendor/autoload.php");
+if (isset($_POST["delete"])) {
+    DB::delete('guest', "id=%i", 2);
+}
 // Check if image file is a actual image or fake image
 if (isset($_POST["submit"])) {
     //echo "Hi";
@@ -10,7 +13,7 @@ if (isset($_POST["submit"])) {
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $check = getimagesize($_FILES["file"]["tmp_name"]);
     if ($check !== false) {
-        echo "File is an image - " . $check["mime"] . ".";
+        //echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
         echo "File is not an image.";
@@ -38,7 +41,7 @@ if (isset($_POST["submit"])) {
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-            echo "The file " . basename($_FILES["file"]["name"]) . " has been uploaded.";
+            //echo "The file " . basename($_FILES["file"]["name"]) . " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
@@ -51,7 +54,7 @@ if (isset($_POST["submit"])) {
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $check = finfo_file($finfo, $_FILES['resume']['tmp_name']);
     if ($check == 'application/pdf') {
-        echo "File is a PDF";
+        //echo "File is a PDF";
         $uploadOk = 1;
     } else {
         echo "File is not a PDF.";
@@ -79,7 +82,7 @@ if (isset($_POST["submit"])) {
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["resume"]["tmp_name"], $target_file)) {
-            echo "The file " . basename($_FILES["resume"]["name"]) . " has been uploaded.";
+            //echo "The file " . basename($_FILES["resume"]["name"]) . " has been uploaded.";
         } else {
             echo "Sorry, there was an error uploading your file.";
         }
@@ -96,7 +99,9 @@ if (isset($_POST["submit"])) {
     } else {
         echo "Submit failure. Please try again.";
     }
-} ?>
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,11 +156,11 @@ if (isset($_POST["submit"])) {
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["website"] . "</td>";
         echo "<td><img src='uploads/" . $row["image"] . "' height='100' width='100'></td>";
-        echo "<td>" . $row["resume"] . "</td>";
+        echo "<td><a target=\"_blank\" href='uploads/" . $row["resume"] . "'>" . $row["resume"] . "</a></td>";
         echo "<td>" . $row["comments"] . "</td>";
         ?>
         <td>
-            <form action="delete-data.php">
+            <form action="index.php">
                 <input type="submit" value="Delete" name="delete">
             </form>
         </td>
