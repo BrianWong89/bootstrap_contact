@@ -101,7 +101,8 @@ if (isset($_POST["submit"])) {
 
 if (isset($_POST["delete"])) {
     if ($uploadOk > 0) {
-        DB::delete('guest', "name=%s", "1");
+        DB::debugMode();
+        DB::delete('guest', "name=%s", "Brian");
     }
 }
 

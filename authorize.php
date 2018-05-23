@@ -34,5 +34,10 @@ function isAuthorized($access_type, $command)
     return false;
 }
 
-$true = isAuthorized("Admin", "delete");
-echo $true;
+$true = isAuthorized("Operations", "delete");
+
+if ($true) {
+    echo "true";
+} else {
+    echo "false";
+}
