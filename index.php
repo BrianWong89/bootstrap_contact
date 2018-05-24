@@ -4,6 +4,7 @@ require_once("vendor/autoload.php");
 // Check if image file is a actual image or fake image
 if (isset($_POST["submit"])) {
     //echo "Hi";
+    $errorMessage = "";
     $fileName = basename($_FILES["file"]["name"]);
     $target_dir = "uploads/";
     $target_file = $target_dir . $fileName;
@@ -14,34 +15,34 @@ if (isset($_POST["submit"])) {
         //echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
-        echo "File is not an image.";
+        $errorMessage = "File is not an image.";
         $uploadOk = 0;
     }
 
 // Check if file already exists
     if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
+        $errorMessage = "Sorry, file already exists.";
         $uploadOk = 0;
     }
 // Check file size
     if ($_FILES["file"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
+        $errorMessage = "Sorry, your file is too large.";
         $uploadOk = 0;
     }
 // Allow certain file formats
     if ($imageFileType != "jpg") {
-        echo "Sorry, only JPG files are allowed.";
+        $errorMessage = "Sorry, only JPG files are allowed.";
         $uploadOk = 0;
     }
 // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
+        $errorMessage = "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
             //echo "The file " . basename($_FILES["file"]["name"]) . " has been uploaded.";
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            $errorMessage = "Sorry, there was an error uploading your file.";
         }
     }
 
@@ -55,34 +56,34 @@ if (isset($_POST["submit"])) {
         //echo "File is a PDF";
         $uploadOk = 1;
     } else {
-        echo "File is not a PDF.";
+        $errorMessage = "File is not a PDF.";
         $uploadOk = 0;
     }
 
 // Check if file already exists
     if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
+        $errorMessage = "Sorry, file already exists.";
         $uploadOk = 0;
     }
 // Check file size
     if ($_FILES["resume"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
+        $errorMessage = "Sorry, your file is too large.";
         $uploadOk = 0;
     }
 // Allow certain file formats
     if ($imageResumeType != "pdf") {
-        echo "Sorry, only PDF files are allowed.";
+        $errorMessage = "Sorry, only PDF files are allowed.";
         $uploadOk = 0;
     }
 // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
+        $errorMessage = "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["resume"]["tmp_name"], $target_file)) {
             //echo "The file " . basename($_FILES["resume"]["name"]) . " has been uploaded.";
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            $errorMessage = "Sorry, there was an error uploading your file.";
         }
     }
     if ($uploadOk > 0) {
@@ -95,14 +96,7 @@ if (isset($_POST["submit"])) {
             'comments' => $_POST['comments']
         ));
     } else {
-        echo "Submit failure. Please try again.";
-    }
-}
-
-if (isset($_POST["delete"])) {
-    if ($uploadOk > 0) {
-        DB::debugMode();
-        DB::delete('guest', "name=%s", "Brian");
+        $errorMessage = "Posting failed. Please try again.";
     }
 }
 
@@ -146,6 +140,7 @@ if (isset($_POST["delete"])) {
 <table border="1">
     <thead>
     <tr>
+        <th>ID</th>
         <th>Name</th>
         <th>Email</th>
         <th>Website</th>
@@ -157,6 +152,7 @@ if (isset($_POST["delete"])) {
     <?php $results = DB::query("SELECT * FROM guest");
     foreach ($results as $row) {
         echo "<tr>";
+        echo "<td>" . $row["id"] . "</td>";
         echo "<td>" . $row["name"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["website"] . "</td>";
@@ -165,6 +161,12 @@ if (isset($_POST["delete"])) {
         echo "<td>" . $row["comments"] . "</td>";
         ?>
         <td>
+            <?php
+            if (isset($_POST["delete"])) {
+            } else {
+                DB::delete('guest', "id=%i", $row["id"]);
+            }
+            ?>
             <form action="index.php">
                 <input type="submit" value="Delete" name="delete">
             </form>
