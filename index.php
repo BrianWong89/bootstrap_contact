@@ -3,6 +3,7 @@ require_once("vendor/autoload.php");
 
 // Check if image file is a actual image or fake image
 if (isset($_POST["submit"])) {
+    //print_r($_POST);
     //echo "Hi";
     $errorMessage = "";
     $fileName = basename($_FILES["file"]["name"]);
@@ -159,14 +160,11 @@ if (isset($_POST["submit"])) {
         echo "<td><img src='uploads/" . $row["image"] . "' height='100' width='100'></td>";
         echo "<td><a target=\"_blank\" href='uploads/" . $row["resume"] . "'>" . $row["resume"] . "</a></td>";
         echo "<td>" . $row["comments"] . "</td>";
+        if (isset($_GET['delete'])) {
+            DB::delete('guest', "id=%i", $row['id']);
+        }
         ?>
         <td>
-            <?php
-            if (isset($_POST["delete"])) {
-            } else {
-                DB::delete('guest', "id=%i", $row["id"]);
-            }
-            ?>
             <form action="index.php">
                 <input type="submit" value="Delete" name="delete">
             </form>
