@@ -1,11 +1,65 @@
 <?php
 require_once("vendor/autoload.php");
 
-// Check if image file is a actual image or fake image
 if (isset($_POST["submit"])) {
+    // define variables and set to empty values
+    $nameErr = $emailErr = $genderErr = $websiteErr = "";
+    $name = $email = $gender = $comment = $website = "";
+    if (empty($_POST["name"])) {
+        $nameErr = "Name is required";
+    } else {
+        $name = test_input($_POST["name"]);
+        // check if name only contains letters and whitespace
+        if (!preg_match("/^[a-zA-Z ]*$/", $name)) {
+            $nameErr = "Only letters and white space allowed";
+        }
+    }
+    if (empty($_POST["email"])) {
+        $emailErr = "Email is required";
+    } else {
+        $email = test_input($_POST["email"]);
+        // check if e-mail address is well-formed
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid email format";
+        }
+    }
+    if (empty($_POST["website"])) {
+        $website = "";
+    } else {
+        $website = test_input($_POST["website"]);
+        // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
+        if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $website)) {
+            $websiteErr = "Invalid URL";
+        }
+    }
+    if (empty($_POST["comment"])) {
+        $comment = "";
+    } else {
+        $comment = test_input($_POST["comment"]);
+    }
+    function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
+
+    $errorMessage1 = "";
+    $errorMessage2 = "";
+    $errorMessage3 = "";
+    $errorMessage4 = "";
+    $errorMessage5 = "";
+    $errorMessage6 = "";
+    $errorMessage7 = "";
+    $errorMessage8 = "";
+    $errorMessage9 = "";
+    $errorMessage10 = "";
+    $errorMessage11 = "";
+    $errorMessage12 = "";
+    $errorMessage13 = "";
     //print_r($_POST);
     //echo "Hi";
-    $errorMessage = "";
     $fileName = basename($_FILES["file"]["name"]);
     $target_dir = "uploads/";
     $target_file = $target_dir . $fileName;
@@ -16,34 +70,34 @@ if (isset($_POST["submit"])) {
         //echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
-        $errorMessage = "File is not an image.";
+        $errorMessage1 = "File is not an image.";
         $uploadOk = 0;
     }
 
 // Check if file already exists
     if (file_exists($target_file)) {
-        $errorMessage = "Sorry, file already exists.";
+        $errorMessage2 = "Sorry, file already exists.";
         $uploadOk = 0;
     }
 // Check file size
     if ($_FILES["file"]["size"] > 500000) {
-        $errorMessage = "Sorry, your file is too large.";
+        $errorMessage3 = "Sorry, your file is too large.";
         $uploadOk = 0;
     }
 // Allow certain file formats
     if ($imageFileType != "jpg") {
-        $errorMessage = "Sorry, only JPG files are allowed.";
+        $errorMessage4 = "Sorry, only JPG files are allowed.";
         $uploadOk = 0;
     }
 // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        $errorMessage = "Sorry, your file was not uploaded.";
+        $errorMessage5 = "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
             //echo "The file " . basename($_FILES["file"]["name"]) . " has been uploaded.";
         } else {
-            $errorMessage = "Sorry, there was an error uploading your file.";
+            $errorMessage6 = "Sorry, there was an error uploading your file.";
         }
     }
 
@@ -57,34 +111,34 @@ if (isset($_POST["submit"])) {
         //echo "File is a PDF";
         $uploadOk = 1;
     } else {
-        $errorMessage = "File is not a PDF.";
+        $errorMessage7 = "File is not a PDF.";
         $uploadOk = 0;
     }
 
 // Check if file already exists
     if (file_exists($target_file)) {
-        $errorMessage = "Sorry, file already exists.";
+        $errorMessage8 = "Sorry, file already exists.";
         $uploadOk = 0;
     }
 // Check file size
     if ($_FILES["resume"]["size"] > 500000) {
-        $errorMessage = "Sorry, your file is too large.";
+        $errorMessage9 = "Sorry, your file is too large.";
         $uploadOk = 0;
     }
 // Allow certain file formats
     if ($imageResumeType != "pdf") {
-        $errorMessage = "Sorry, only PDF files are allowed.";
+        $errorMessage10 = "Sorry, only PDF files are allowed.";
         $uploadOk = 0;
     }
 // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        $errorMessage = "Sorry, your file was not uploaded.";
+        $errorMessage11 = "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["resume"]["tmp_name"], $target_file)) {
             //echo "The file " . basename($_FILES["resume"]["name"]) . " has been uploaded.";
         } else {
-            $errorMessage = "Sorry, there was an error uploading your file.";
+            $errorMessage12 = "Sorry, there was an error uploading your file.";
         }
     }
     if ($uploadOk > 0) {
@@ -97,7 +151,7 @@ if (isset($_POST["submit"])) {
             'comments' => $_POST['comments']
         ));
     } else {
-        $errorMessage = "Posting failed. Please try again.";
+        $errorMessage13 = "Posting failed. Please try again.";
     }
 }
 
@@ -106,20 +160,27 @@ if (isset($_POST["submit"])) {
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .error {
+            color: #FF0000;
+        }
+    </style>
 </head>
+<?php echo $errorMessage1 . $errorMessage2 . $errorMessage3 . $errorMessage4 . $errorMessage5 . $errorMessage6 . $errorMessage7 . $errorMessage8 . $errorMessage9 . $errorMessage10 . $errorMessage11 . $errorMessage12 . $errorMessage13; ?>
 <img src="images/logo.jpg" height="100" width="350">
 <h1>Guest Book</h1>
 <form action="index.php" method="POST" enctype="multipart/form-data">
     <label>Name:</label>
-    <input type="input" name="name" required>
+    <input type="input" name="name">
+    <span class="error">* <?php echo $nameErr; ?></span>
     <br>
     <br>
     <label>Email:</label>
-    <input type="input" name="email" required>
+    <input type="input" name="email">
     <br>
     <br>
     <label>Website:</label>
-    <input type="input" name="website" required>
+    <input type="input" name="website">
     <br>
     <br>
     <label>Upload Image:</label>
@@ -131,7 +192,7 @@ if (isset($_POST["submit"])) {
     <br>
     <br>
     <label>Comments:</label>
-    <textarea name="comments" required></textarea>
+    <textarea name="comments"></textarea>
     <br>
     <br>
     <input type="submit" value="Submit" name="submit">
@@ -160,12 +221,12 @@ if (isset($_POST["submit"])) {
         echo "<td><img src='uploads/" . $row["image"] . "' height='100' width='100'></td>";
         echo "<td><a target=\"_blank\" href='uploads/" . $row["resume"] . "'>" . $row["resume"] . "</a></td>";
         echo "<td>" . $row["comments"] . "</td>";
-        if (isset($_GET['delete'])) {
-            DB::delete('guest', "id=%i", $row['id']);
-        }
         ?>
         <td>
-            <form action="index.php">
+            <?php if (!isset($_POST['delete'])) {
+                DB::delete('guest', "id=%i", $row['id']);
+            } ?>
+            <form action="index.php" method="post">
                 <input type="submit" value="Delete" name="delete">
             </form>
         </td>

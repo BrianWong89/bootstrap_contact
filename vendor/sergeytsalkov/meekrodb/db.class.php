@@ -19,9 +19,10 @@
 
 class DB {
   // initial connection
+  //e9366749c314d8ea1c153dd3f157b68dd5811b0a556a0196
   public static $dbName = 'brian';
   public static $user = 'root';
-  public static $password = 'e9366749c314d8ea1c153dd3f157b68dd5811b0a556a0196';
+  public static $password = '';
   public static $host = 'localhost';
   public static $port = null;
   public static $encoding = 'latin1';	
