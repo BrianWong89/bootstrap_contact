@@ -1,5 +1,6 @@
 <?php
 require_once("vendor/autoload.php");
+
 function test_input($data)
 {
     $data = trim($data);
@@ -31,7 +32,7 @@ if (isset($_POST["submit"])) {
         }
     }
     if (empty($_POST["website"])) {
-        $websiteEmpty = "Website is required";
+        $websiteErr = "Website is required";
     } else {
         $website = test_input($_POST["website"]);
         // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
@@ -40,26 +41,12 @@ if (isset($_POST["submit"])) {
         }
     }
     if (empty($_POST["comment"])) {
-        $comment = "";
+        $comment = "Comment is required";
     } else {
         $comment = test_input($_POST["comment"]);
     }
 
-    $errorMessage = "";
-    $errorMessage2 = "";
-    $errorMessage3 = "";
-    $errorMessage4 = "";
-    $errorMessage5 = "";
-    $errorMessage6 = "";
-    $errorMessage7 = "";
-    $errorMessage8 = "";
-    $errorMessage9 = "";
-    $errorMessage10 = "";
-    $errorMessage11 = "";
-    $errorMessage12 = "";
-    $errorMessage13 = "";
-    //print_r($_POST);
-    //echo "Hi";
+    //Upload image files code
     $fileName = basename($_FILES["file"]["name"]);
     $target_dir = "uploads/";
     $target_file = $target_dir . $fileName;
@@ -70,37 +57,38 @@ if (isset($_POST["submit"])) {
         //echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
-        $errorMessage = "File is not an image.";
+        $notImage = "File is not an image.";
         $uploadOk = 0;
     }
 
 // Check if file already exists
     if (file_exists($target_file)) {
-        $errorMessage2 = "Sorry, file already exists.";
+        $imageExists = "Sorry, image file already exists.";
         $uploadOk = 0;
     }
 // Check file size
     if ($_FILES["file"]["size"] > 500000) {
-        $errorMessage3 = "Sorry, your file is too large.";
+        $imageSize = "Sorry, your image file is too large.";
         $uploadOk = 0;
     }
 // Allow certain file formats
     if ($imageFileType != "jpg") {
-        $errorMessage4 = "Sorry, only JPG files are allowed.";
+        $imageFormat = "Sorry, only JPG files are allowed.";
         $uploadOk = 0;
     }
 // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        $errorMessage5 = "Sorry, your file was not uploaded.";
+        $imageUpload = "Sorry, your image file was not uploaded.";
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
             //echo "The file " . basename($_FILES["file"]["name"]) . " has been uploaded.";
         } else {
-            $errorMessage6 = "Sorry, there was an error uploading your file.";
+            $imageUploadStatus = "Sorry, there was an error uploading your image file.";
         }
     }
 
+    //Upload PDF files code
     $resumeName = basename($_FILES["resume"]["name"]);
     $target_file = $target_dir . $resumeName;
     $imageResumeType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -111,34 +99,34 @@ if (isset($_POST["submit"])) {
         //echo "File is a PDF";
         $uploadOk = 1;
     } else {
-        $errorMessage7 = "File is not a PDF.";
+        $notPDF = "File is not a PDF.";
         $uploadOk = 0;
     }
 
 // Check if file already exists
     if (file_exists($target_file)) {
-        $errorMessage8 = "Sorry, file already exists.";
+        $existPDF = "Sorry, PDF file already exists.";
         $uploadOk = 0;
     }
 // Check file size
     if ($_FILES["resume"]["size"] > 500000) {
-        $errorMessage9 = "Sorry, your file is too large.";
+        $sizePDF = "Sorry, your PDF file is too large.";
         $uploadOk = 0;
     }
 // Allow certain file formats
     if ($imageResumeType != "pdf") {
-        $errorMessage10 = "Sorry, only PDF files are allowed.";
+        $typePDF = "Sorry, only PDF files are allowed.";
         $uploadOk = 0;
     }
 // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        $errorMessage11 = "Sorry, your file was not uploaded.";
+        $uploadPDF = "Sorry, your PDF file was not uploaded.";
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["resume"]["tmp_name"], $target_file)) {
             //echo "The file " . basename($_FILES["resume"]["name"]) . " has been uploaded.";
         } else {
-            $errorMessage12 = "Sorry, there was an error uploading your file.";
+            $uploadPDFStatus = "Sorry, there was an error uploading your PDF file.";
         }
     }
     if ($uploadOk > 0) {
@@ -151,7 +139,7 @@ if (isset($_POST["submit"])) {
             'comments' => $_POST['comments']
         ));
     } else {
-        $errorMessage13 = "Posting failed. Please try again.";
+        $errorMessage = "Posting failed. Please try again.";
     }
 }
 
@@ -168,9 +156,47 @@ if (isset($_POST["submit"])) {
 </head>
 <img src="images/logo.jpg" height="100" width="350">
 <div class="row">
-    <?php if (strlen($errorMessage) > 0) {
-        echo "Error Message: " . $errorMessage;
-    } ?>
+    <?php
+    if (strlen($notImage) > 0) {
+        echo "<strong>Error Message:</strong> " . $notImage . "<br>";
+    }
+    if (strlen($imageExists) > 0) {
+        echo "<strong>Error Message:</strong> " . $imageExists . "<br>";
+    }
+    if (strlen($imageSize) > 0) {
+        echo "<strong>Error Message:</strong> " . $imageSize . "<br>";
+    }
+    if (strlen($imageFormat) > 0) {
+        echo "<strong>Error Message:</strong> " . $imageFormat . "<br>";
+    }
+    if (strlen($imageUpload) > 0) {
+        echo "<strong>Error Message:</strong> " . $imageUpload . "<br>";
+    }
+    if (strlen($imageUploadStatus) > 0) {
+        echo "<strong>Error Message:</strong> " . $imageUploadStatus . "<br>";
+    }
+    if (strlen($notPDF) > 0) {
+        echo "<strong>Error Message:</strong> " . $notPDF . "<br>";
+    }
+    if (strlen($existPDF) > 0) {
+        echo "<strong>Error Message:</strong> " . $existPDF . "<br>";
+    }
+    if (strlen($sizePDF) > 0) {
+        echo "<strong>Error Message:</strong> " . $sizePDF . "<br>";
+    }
+    if (strlen($typePDF) > 0) {
+        echo "<strong>Error Message:</strong> " . $typePDF . "<br>";
+    }
+    if (strlen($uploadPDF) > 0) {
+        echo "<strong>Error Message:</strong> " . $uploadPDF . "<br>";
+    }
+    if (strlen($uploadPDFStatus) > 0) {
+        echo "<strong>Error Message:</strong> " . $uploadPDFStatus . "<br>";
+    }
+    if (strlen($errorMessage) > 0) {
+        echo "<strong>Error Message:</strong> " . $errorMessage . "<br>";
+    }
+    ?>
 </div>
 <h1>Guest Book</h1>
 <form action="index.php" method="POST" enctype="multipart/form-data">
@@ -186,7 +212,7 @@ if (isset($_POST["submit"])) {
     <br>
     <label>Website:</label>
     <input type="input" name="website">
-    <span class="error">* <?php echo $websiteEmpty; ?><?php echo $websiteErr; ?></span>
+    <span class="error">* <?php echo $websiteErr; ?></span>
     <br>
     <br>
     <label>Upload Image:</label>
@@ -219,21 +245,21 @@ if (isset($_POST["submit"])) {
     </tr>
     <?php $results = DB::query("SELECT * FROM guest");
     foreach ($results as $row) {
-        echo "<tr>";
+        echo "<tr style='text-align: center;'>";
         echo "<td>" . $row["id"] . "</td>";
         echo "<td>" . $row["name"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["website"] . "</td>";
         echo "<td><img src='uploads/" . $row["image"] . "' height='100' width='100'></td>";
         echo "<td><a target=\"_blank\" href='uploads/" . $row["resume"] . "'>" . $row["resume"] . "</a></td>";
-        echo htmlspecialchars("<td>" . $row["comments"] . "</td>");
+        echo "<td>" . htmlspecialchars($row["comments"]) . "</td>";
         ?>
         <td>
-            <?php if (isset($_GET['delete'])) {
-                $row = DB::queryFirstRow("SELECT * from guest WHERE id = %i", $row['id']);
+            <?php if (isset($_POST['delete'])) {
+                //$row = DB::queryFirstRow("SELECT * from guest WHERE id = %i", $row["id"]);
+                DB::delete('guest', "id=%i", $row["id"]);
                 unlink('uploads/' . $row["image"]);
                 unlink('uploads/' . $row["resume"]);
-                DB::delete('guest', "id=%i", $row['id']);
             } ?>
             <form action="index.php" method="post">
                 <input type="submit" value="Delete" name="delete">
