@@ -1,5 +1,12 @@
 <?php
 require_once("vendor/autoload.php");
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
 if (isset($_POST["submit"])) {
     // define variables and set to empty values
@@ -24,7 +31,7 @@ if (isset($_POST["submit"])) {
         }
     }
     if (empty($_POST["website"])) {
-        $website = "";
+        $websiteEmpty = "Website is required";
     } else {
         $website = test_input($_POST["website"]);
         // check if URL address syntax is valid (this regular expression also allows dashes in the URL)
@@ -37,15 +44,8 @@ if (isset($_POST["submit"])) {
     } else {
         $comment = test_input($_POST["comment"]);
     }
-    function test_input($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
 
-    $errorMessage1 = "";
+    $errorMessage = "";
     $errorMessage2 = "";
     $errorMessage3 = "";
     $errorMessage4 = "";
@@ -70,7 +70,7 @@ if (isset($_POST["submit"])) {
         //echo "File is an image - " . $check["mime"] . ".";
         $uploadOk = 1;
     } else {
-        $errorMessage1 = "File is not an image.";
+        $errorMessage = "File is not an image.";
         $uploadOk = 0;
     }
 
@@ -166,8 +166,12 @@ if (isset($_POST["submit"])) {
         }
     </style>
 </head>
-<?php echo $errorMessage1 . $errorMessage2 . $errorMessage3 . $errorMessage4 . $errorMessage5 . $errorMessage6 . $errorMessage7 . $errorMessage8 . $errorMessage9 . $errorMessage10 . $errorMessage11 . $errorMessage12 . $errorMessage13; ?>
 <img src="images/logo.jpg" height="100" width="350">
+<div class="row">
+    <?php if (strlen($errorMessage) > 0) {
+        echo "Error Message: " . $errorMessage;
+    } ?>
+</div>
 <h1>Guest Book</h1>
 <form action="index.php" method="POST" enctype="multipart/form-data">
     <label>Name:</label>
@@ -177,10 +181,12 @@ if (isset($_POST["submit"])) {
     <br>
     <label>Email:</label>
     <input type="input" name="email">
+    <span class="error">* <?php echo $emailErr; ?></span>
     <br>
     <br>
     <label>Website:</label>
     <input type="input" name="website">
+    <span class="error">* <?php echo $websiteEmpty; ?><?php echo $websiteErr; ?></span>
     <br>
     <br>
     <label>Upload Image:</label>
@@ -220,10 +226,13 @@ if (isset($_POST["submit"])) {
         echo "<td>" . $row["website"] . "</td>";
         echo "<td><img src='uploads/" . $row["image"] . "' height='100' width='100'></td>";
         echo "<td><a target=\"_blank\" href='uploads/" . $row["resume"] . "'>" . $row["resume"] . "</a></td>";
-        echo "<td>" . $row["comments"] . "</td>";
+        echo htmlspecialchars("<td>" . $row["comments"] . "</td>");
         ?>
         <td>
-            <?php if (!isset($_POST['delete'])) {
+            <?php if (isset($_GET['delete'])) {
+                $row = DB::queryFirstRow("SELECT * from guest WHERE id = %i", $row['id']);
+                unlink('uploads/' . $row["image"]);
+                unlink('uploads/' . $row["resume"]);
                 DB::delete('guest', "id=%i", $row['id']);
             } ?>
             <form action="index.php" method="post">
