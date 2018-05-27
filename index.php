@@ -243,13 +243,13 @@ if (isset($_POST["submit"])) {
         echo "<td>" . htmlspecialchars($row["comments"]) . "</td>";
         ?>
         <td>
-            <?php if (isset($_POST['delete'])) {
-                //$row = DB::queryFirstRow("SELECT * from guest WHERE id = %i", $row["id"]);
-                DB::delete('guest', "id=%i", $row["id"]);
+            <?php if (isset($_GET['delete'])) {
+                $row = DB::queryFirstRow("SELECT * from guest WHERE id = %i", $row['id']);
                 unlink('uploads/' . $row["image"]);
                 unlink('uploads/' . $row["resume"]);
+                DB::delete('guest', "id=%i", $row["id"]);
             } ?>
-            <form action="index.php" method="post">
+            <form action="index.php" method="get">
                 <input type="submit" value="Delete" name="delete">
             </form>
         </td>
