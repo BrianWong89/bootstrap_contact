@@ -50,34 +50,34 @@ if (isset($_POST["submit"])) {
     $fileName = basename($_FILES["file"]["name"]);
     $target_dir = "uploads/";
     $target_file = $target_dir . $fileName;
-    $uploadOk = 1;
+    $uploadImageOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $check = getimagesize($_FILES["file"]["tmp_name"]);
     if ($check !== false) {
         //echo "File is an image - " . $check["mime"] . ".";
-        $uploadOk = 1;
+        $uploadImageOk = 1;
     } else {
         $notImage = "File is not an image.";
-        $uploadOk = 0;
+        $uploadImageOk = 0;
     }
 
 // Check if file already exists
     if (file_exists($target_file)) {
         $imageExists = "Sorry, image file already exists.";
-        $uploadOk = 0;
+        $uploadImageOk = 0;
     }
 // Check file size
     if ($_FILES["file"]["size"] > 500000) {
         $imageSize = "Sorry, your image file is too large.";
-        $uploadOk = 0;
+        $uploadImageOk = 0;
     }
 // Allow certain file formats
     if ($imageFileType != "jpg") {
         $imageFormat = "Sorry, only JPG files are allowed.";
-        $uploadOk = 0;
+        $uploadImageOk = 0;
     }
-// Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
+// Check if $uploadImageOk is set to 0 by an error
+    if ($uploadImageOk == 0) {
         $imageUpload = "Sorry, your image file was not uploaded.";
 // if everything is ok, try to upload file
     } else {
@@ -92,34 +92,34 @@ if (isset($_POST["submit"])) {
     $resumeName = basename($_FILES["resume"]["name"]);
     $target_file = $target_dir . $resumeName;
     $imageResumeType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-// Check if image file is a actual image or fake image
+// Check if PDF file is a actual PDF file or fake PDF file
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $check = finfo_file($finfo, $_FILES['resume']['tmp_name']);
     if ($check == 'application/pdf') {
         //echo "File is a PDF";
-        $uploadOk = 1;
+        $uploadPDFOk = 1;
     } else {
         $notPDF = "File is not a PDF.";
-        $uploadOk = 0;
+        $uploadPDFOk = 0;
     }
 
-// Check if file already exists
+// Check if PDF file already exists
     if (file_exists($target_file)) {
         $existPDF = "Sorry, PDF file already exists.";
-        $uploadOk = 0;
+        $uploadPDFOk = 0;
     }
 // Check file size
     if ($_FILES["resume"]["size"] > 500000) {
         $sizePDF = "Sorry, your PDF file is too large.";
-        $uploadOk = 0;
+        $uploadPDFOk = 0;
     }
 // Allow certain file formats
     if ($imageResumeType != "pdf") {
         $typePDF = "Sorry, only PDF files are allowed.";
-        $uploadOk = 0;
+        $uploadPDFOk = 0;
     }
-// Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
+// Check if $uploadPDFOk is set to 0 by an error
+    if ($uploadPDFOk == 0) {
         $uploadPDF = "Sorry, your PDF file was not uploaded.";
 // if everything is ok, try to upload file
     } else {
@@ -129,7 +129,7 @@ if (isset($_POST["submit"])) {
             $uploadPDFStatus = "Sorry, there was an error uploading your PDF file.";
         }
     }
-    if ($uploadOk > 0) {
+    if ($uploadImageOk > 0 && $uploadPDFOk > 0) {
         DB::insert('guest', array(
             'name' => $_POST['name'],
             'email' => $_POST['email'],
@@ -159,41 +159,29 @@ if (isset($_POST["submit"])) {
     <?php
     if (strlen($notImage) > 0) {
         echo "<strong>Error Message:</strong> " . $notImage . "<br>";
-    }
-    if (strlen($imageExists) > 0) {
+    } else if (strlen($imageExists) > 0) {
         echo "<strong>Error Message:</strong> " . $imageExists . "<br>";
-    }
-    if (strlen($imageSize) > 0) {
+    } else if (strlen($imageSize) > 0) {
         echo "<strong>Error Message:</strong> " . $imageSize . "<br>";
-    }
-    if (strlen($imageFormat) > 0) {
+    } else if (strlen($imageFormat) > 0) {
         echo "<strong>Error Message:</strong> " . $imageFormat . "<br>";
-    }
-    if (strlen($imageUpload) > 0) {
+    } else if (strlen($imageUpload) > 0) {
         echo "<strong>Error Message:</strong> " . $imageUpload . "<br>";
-    }
-    if (strlen($imageUploadStatus) > 0) {
+    } else if (strlen($imageUploadStatus) > 0) {
         echo "<strong>Error Message:</strong> " . $imageUploadStatus . "<br>";
-    }
-    if (strlen($notPDF) > 0) {
+    } else if (strlen($notPDF) > 0) {
         echo "<strong>Error Message:</strong> " . $notPDF . "<br>";
-    }
-    if (strlen($existPDF) > 0) {
+    } else if (strlen($existPDF) > 0) {
         echo "<strong>Error Message:</strong> " . $existPDF . "<br>";
-    }
-    if (strlen($sizePDF) > 0) {
+    } else if (strlen($sizePDF) > 0) {
         echo "<strong>Error Message:</strong> " . $sizePDF . "<br>";
-    }
-    if (strlen($typePDF) > 0) {
+    } else if (strlen($typePDF) > 0) {
         echo "<strong>Error Message:</strong> " . $typePDF . "<br>";
-    }
-    if (strlen($uploadPDF) > 0) {
+    } else if (strlen($uploadPDF) > 0) {
         echo "<strong>Error Message:</strong> " . $uploadPDF . "<br>";
-    }
-    if (strlen($uploadPDFStatus) > 0) {
+    } else if (strlen($uploadPDFStatus) > 0) {
         echo "<strong>Error Message:</strong> " . $uploadPDFStatus . "<br>";
-    }
-    if (strlen($errorMessage) > 0) {
+    } else if (strlen($errorMessage) > 0) {
         echo "<strong>Error Message:</strong> " . $errorMessage . "<br>";
     }
     ?>
